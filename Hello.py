@@ -33,11 +33,12 @@ def auth_flow():
         st.session_state["google_auth_code"] = auth_code
         st.session_state["user_info"] = user_info
     else:
-        
-        authorization_url, state = flow.authorization_url(
-        )
-        # nav_to(authorization_url)
-        st.write(authorization_url)
+        authorization_url, state = flow.authorization_url()
+        if st.button("Sign in with Google"):
+            js = f"window.location.href = '{authorization_url}'"
+            html = f'<img src onerror="{js}">'
+            div = Div(text=html)
+            st.bokeh_chart(div)
 
 def extract_info(text):
     application_numbers = re.findall(r"Application number\s*:\s*(\d+)", text)
