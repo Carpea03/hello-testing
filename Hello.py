@@ -15,7 +15,7 @@ def auth_flow():
     st.write("Welcome to LTC Exam Report!")
     auth_code = st.query_params.get("code")
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        "/workspaces/hello-testing/patent_examination_tool.json",
+        "patent_examination_tool.json",
         scopes=["https://www.googleapis.com/auth/userinfo.email", "openid"],
         redirect_uri=redirect_uri,
     )
