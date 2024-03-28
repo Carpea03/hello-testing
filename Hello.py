@@ -36,8 +36,8 @@ def auth_flow():
         
         authorization_url, state = flow.authorization_url(
         )
-        # nav_to(authorization_url)
-        st.write(authorization_url)
+        nav_to(authorization_url)
+        # st.write(authorization_url)
 
 def extract_info(text):
     application_numbers = re.findall(r"Application number\s*:\s*(\d+)", text)
