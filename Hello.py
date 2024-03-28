@@ -1,7 +1,6 @@
 import os
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
-import webbrowser
 import streamlit as st
 import PyPDF2
 import re
