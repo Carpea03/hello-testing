@@ -38,9 +38,9 @@ def auth_flow():
         st.markdown(button_html, unsafe_allow_html=True)
 
 def extract_info(text):
-    application_numbers = re.findall(r"Application number\s*:\s*(\d+)", text)
-    applicant_names = re.findall(r"Applicant name\w*\s*:\s*(.*)", text)
-    your_references = re.findall(r"Your reference\s*:\s*(\S.*)", text)
+    application_numbers = list(set(re.findall(r"Application number\s*:\s*(\d+)", text)))
+    applicant_names = list(set(re.findall(r"Applicant name\w*\s*:\s*(.*)", text)))
+    your_references = list(set(re.findall(r"Your reference\s*:\s*(\S.*)", text)))
     return application_numbers, applicant_names, your_references
 def fetch_patent_details(application_number):
     api_key = "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
