@@ -107,7 +107,11 @@ def main():
         st.write(f"Hello {email}")
         uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
         if uploaded_file is not None:
-            # ...
+            pdf_reader = PyPDF2.PdfReader(uploaded_file)
+            text = ""
+            for page in pdf_reader.pages:
+                text += page.extract_text()
+
             with st.expander("Text Extraction"):
                 application_numbers, applicant_names, your_references = extract_info(text)
                 if application_numbers:
