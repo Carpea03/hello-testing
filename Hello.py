@@ -8,7 +8,6 @@ import requests
 import json
 import anthropic
 from io import BytesIO
-from bokeh.models import Div
 
 redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
 
@@ -35,11 +34,8 @@ def auth_flow():
         st.session_state["user_info"] = user_info
     else:
         authorization_url, state = flow.authorization_url()
-        if st.button("Sign in with Google"):
-            js = f"window.location.href = '{authorization_url}'"
-            html = f'<img src onerror="{js}">'
-            div = Div(text=html)
-            st.bokeh_chart(div)
+        button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">Sign in with Google</button></a>'
+        st.markdown(button_html, unsafe_allow_html=True)
 
 def extract_info(text):
     application_numbers = re.findall(r"Application number\s*:\s*(\d+)", text)
