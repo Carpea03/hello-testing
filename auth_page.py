@@ -10,7 +10,7 @@ def auth_flow():
     auth_code = st.query_params().get("code")
     
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        "patent_examination_tool.json",
+        "/workspaces/hello-testing/My Project 620.json",
         scopes=["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/userinfo.profile","openid"],
         redirect_uri=redirect_uri,
     )
