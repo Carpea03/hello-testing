@@ -9,8 +9,7 @@ import json
 import anthropic
 from io import BytesIO
 
-st.set_page_config(page_title="LTC PP Report Creator", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
-st.title("Baxter Internal Tools")
+st.set_page_config(page_title="Baxter Internal Tools", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
 
 redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
 
