@@ -36,7 +36,7 @@ def main():
     if "google_auth_code" not in st.session_state:
         auth_flow()
     else:
-        st.experimental_set_query_params(page="tool")  # Redirect to the tool page
+        st.experimental_set_page("tool")  # Redirect to the tool page
 
 if __name__ == "__main__":
     main()
