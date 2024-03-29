@@ -135,9 +135,6 @@ def main():
             st.markdown(output, unsafe_allow_html=True)
         else:
             st.write("No file uploaded.")  # Debug statement
-    else:
-        st.write("Please log in to access the tool.")
-        st.query_params["page"] = "auth"
 
 if __name__ == "__main__":
     main()
