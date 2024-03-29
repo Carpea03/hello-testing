@@ -26,7 +26,6 @@ def auth_flow():
             credentials=credentials,
         )
         user_info = user_info_service.userinfo().get().execute()
-        assert user_info.get("email"), "Email not found in infos"
         st.session_state["google_auth_code"] = auth_code
         st.session_state["user_info"] = user_info
     else:
