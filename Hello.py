@@ -107,7 +107,7 @@ def nav_to(url):
 
 def main():
     
-    st.title("Baxter Internal Tools")
+    st.title("LTC PP Report Creator")
     st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
     
     if "google_auth_code" not in st.session_state:
@@ -116,8 +116,18 @@ def main():
     if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
-        
-        uploaded_file = st.file_uploader("Upload a LFO PP PDF", type="pdf")
+        st.markdown(
+         """
+         <style>
+         .uploadedFile {
+             width: 500px;  /* Adjust the width as needed */
+             height: 100px;  /* Adjust the height as needed */
+         }
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+        uploaded_file = st.file_uploader("Upload a LFO PP PDF", type="pdf", style="uploadedFile")
         
         if uploaded_file is not None:
             pdf_reader = PyPDF2.PdfReader(uploaded_file)
