@@ -105,7 +105,7 @@ def main():
     if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
-        uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
+        uploaded_file = st.file_uploader("Upload an LFO PP PDF", type="pdf")
         if uploaded_file is not None:
             pdf_reader = PyPDF2.PdfReader(uploaded_file)
             text = ""
