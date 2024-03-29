@@ -7,7 +7,7 @@ redirect_uri = os.environ.get("REDIRECT_URI", "https://baxter.streamlit.app")
 
 def auth_flow():
     st.write("Baxter Internal Tools")
-    auth_code = st.experimental_get_query_params().get("code")
+    auth_code = st.query_params().get("code")
     
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "patent_examination_tool.json",
@@ -33,7 +33,7 @@ def auth_flow():
         
         st.session_state["google_auth_code"] = auth_code
         st.session_state["user_info"] = user_info
-        st.experimental_set_query_params(page="tool")
+        st.query_params(page="tool")
         st.experimental_rerun()
     else:
         authorization_url, _ = flow.authorization_url(prompt="consent")
