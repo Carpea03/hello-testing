@@ -78,7 +78,6 @@ def main():
             text = ""
             for page in pdf_reader.pages:
                 text += page.extract_text()
-
             with st.expander("Text Extraction"):
                 application_numbers, applicant_names, your_references = extract_info(text)
                 if application_numbers:
@@ -94,8 +93,6 @@ def main():
                             st.write(f"Your Reference {i+1}: Not found")
                 else:
                     st.write("No application numbers found in the uploaded file.")
-        else:
-            st.write("Please log in to access the tool.")
 
             with st.expander("Google Patents Lookup"):
                 patent_details_list = []
@@ -104,16 +101,18 @@ def main():
                     patent_details_list.append(patent_details)
                     st.write(f"Patent Details for Application Number {application_number}:")
                     st.write(patent_details)
-            
+
             example_output_urls = [
                 "https://drive.google.com/uc?export=download&id=1KZ4bc5d_Lnugp5XBKoUC3U5HUh71dBJz",
                 "https://drive.google.com/uc?export=download&id=1KYkrTkQ_Dvoa7jZAZluswQ_0Y8RiVI2G",
             ]
-            
             output = generate_output(text, patent_details_list, example_output_urls)
             st.markdown(output, unsafe_allow_html=True)
-
-    st.query_params(page="auth")
+        else:
+            st.write("Please upload an LFO PP PDF to process.")
+    else:
+        st.write("Please log in to access the tool.")
+        st.query_params["page"] = "auth"
 
 if __name__ == "__main__":
     main()
