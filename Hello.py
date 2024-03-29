@@ -12,23 +12,17 @@ from io import BytesIO
 redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
 
 def auth_flow():
-    st.write("Baxter Internal Tools")
-      auth_code = st.query_params.get("code")
+    st.title("Baxter Internal Tools")
+    auth_code = st.query_params.get("code")
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "patent_examination_tool.json",
         scopes=["https://www.googleapis.com/auth/userinfo.email", "openid"],
         redirect_uri=redirect_uri,
     )
+    
     if auth_code:
         flow.fetch_token(code=auth_code)
         credentials = flow.credentials
-        user_info_service = build(
-            serviceName="oauth2",
-            version="v2",
-            credentials=credentials,
-        )
-        user_info = user_info_service.userinfo().get().execute()
-        assert user_info.get("email"), "Email not found in infos"
         st.session_state["google_auth_code"] = auth_code
         st.session_state["user_info"] = user_info
     else:
