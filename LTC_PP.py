@@ -90,7 +90,6 @@ def main():
     if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
-        st.write("Please upload an LFO PP PDF to process.")
         uploaded_file = st.file_uploader("Upload an LFO PP PDF", type="pdf")
         st.write(f"Uploaded file: {uploaded_file}")  # Debug statement
         if uploaded_file is not None:
@@ -133,8 +132,6 @@ def main():
             st.write("Generating output...")  # Debug statement
             output = generate_output(text, patent_details_list, example_output_urls)
             st.markdown(output, unsafe_allow_html=True)
-        else:
-            st.write("No file uploaded.")  # Debug statement
 
 if __name__ == "__main__":
     main()
