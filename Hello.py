@@ -9,8 +9,6 @@ import json
 import anthropic
 from io import BytesIO
 
-st.set_page_config(page_title="Baxter Internal Tools", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
-
 redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
 
 def auth_flow():
@@ -38,26 +36,20 @@ def auth_flow():
         authorization_url, state = flow.authorization_url()
         button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">Sign in with Google</button></a>'
         st.markdown(button_html, unsafe_allow_html=True)
-        
+
 def extract_info(text):
-    with st.container():
-         st.subheader("Text Extraction")
-         with st.expander("Show Details"):
-            application_numbers = list(set(re.findall(r"Application number\s*:\s*(\d+)", text)))
-            applicant_names = list(set(re.findall(r"Applicant name\w*\s*:\s*(.*)", text)))
-            your_references = list(set(re.findall(r"Your reference\s*:\s*(\S.*)", text)))
-            return application_numbers, applicant_names, your_references
-st.empty()
+    application_numbers = list(set(re.findall(r"Application number\s*:\s*(\d+)", text)))
+    applicant_names = list(set(re.findall(r"Applicant name\w*\s*:\s*(.*)", text)))
+    your_references = list(set(re.findall(r"Your reference\s*:\s*(\S.*)", text)))
+    return application_numbers, applicant_names, your_references
+
 def fetch_patent_details(application_number):
-    with st.container():
-         st.subheader("Google Patents Lookup")
-         with st.expander("Show Details"):
-            api_key = "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
-            url = f"https://serpapi.com/search?engine=google_patents&q={application_number}&api_key={api_key}"
-            response = requests.get(url)
-            data = json.loads(response.text)
-            return data
-st.empty()
+    api_key = "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
+    url = f"https://serpapi.com/search?engine=google_patents&q={application_number}&api_key={api_key}"
+    response = requests.get(url)
+    data = json.loads(response.text)
+    return data
+
 def generate_output(input_text, patent_details, example_output_urls):
     client = anthropic.Anthropic()
 
@@ -108,48 +100,27 @@ def nav_to(url):
     st.write(nav_script, unsafe_allow_html=True)
 
 def main():
-    
-    if "google_auth_code" in st.session_state:
+    if "google_auth_code" not in st.session_state:
         auth_flow()
-    else:
-        st.title("LTC PP Report Creator")
-        st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
-        
+    if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
-        
-        st.markdown(
-            """
-            <style>
-            .uploadedFile {
-                width: 500px; /* Adjust the width as needed */
-                height: 100px; /* Adjust the height as needed */
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        uploaded_file = st.file_uploader("Upload a LFO PP PDF", type="pdf", style="uploadedFile")
-        
+        uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
         if uploaded_file is not None:
             pdf_reader = PyPDF2.PdfReader(uploaded_file)
             text = ""
             for page in pdf_reader.pages:
                 text += page.extract_text()
-            
+
             with st.expander("Text Extraction"):
                 application_numbers, applicant_names, your_references = extract_info(text)
-                
                 if application_numbers:
                     for i, application_number in enumerate(application_numbers):
                         st.write(f"Application Number {i+1}: {application_number}")
-                        
                         if i < len(applicant_names):
                             st.write(f"Applicant Name {i+1}: {applicant_names[i]}")
                         else:
                             st.write(f"Applicant Name {i+1}: Not found")
-                        
                         if i < len(your_references):
                             st.write(f"Your Reference {i+1}: {your_references[i]}")
                         else:
@@ -171,8 +142,7 @@ def main():
             ]
             
             output = generate_output(text, patent_details_list, example_output_urls)
-            st.subheader("Response Letter")
-            st.markdown(output)
+            st.markdown(output, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
