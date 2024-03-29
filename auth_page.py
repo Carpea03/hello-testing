@@ -7,7 +7,7 @@ redirect_uri = os.environ.get("REDIRECT_URI", "https://baxter.streamlit.app/")
 
 def auth_flow():
     st.write("Baxter Internal Tools")
-    auth_code = st.query_params().get("code")
+    auth_code = st.query_params.get("code")
     
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "My Project 620.json",
