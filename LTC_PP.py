@@ -17,7 +17,25 @@ def fetch_patent_details(application_number):
     url = f"https://serpapi.com/search?engine=google_patents&q={application_number}&api_key={api_key}"
     response = requests.get(url)
     data = json.loads(response.text)
-    return data
+    
+    patent_details = data.get("organic_results", [])
+    if patent_details:
+        patent_details = patent_details[0]
+        abstract = patent_details.get("abstract", "")
+        claims = patent_details.get("claims", [])
+        cited_patents = patent_details.get("cited_patents", [])
+        non_patent_citations = patent_details.get("non_patent_citations", [])
+        family_members = patent_details.get("family_members", [])
+        legal_events = patent_details.get("legal_events", [])
+        
+        patent_details["abstract"] = abstract
+        patent_details["claims"] = claims
+        patent_details["cited_patents"] = cited_patents
+        patent_details["non_patent_citations"] = non_patent_citations
+        patent_details["family_members"] = family_members
+        patent_details["legal_events"] = legal_events
+    
+    return patent_details
 
 def generate_output(input_text, patent_details, example_output_urls):
     client = anthropic.Anthropic()
