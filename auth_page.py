@@ -26,6 +26,7 @@ def auth_flow():
         assert user_info.get("email"), "Email not found in infos"
         st.session_state["google_auth_code"] = auth_code
         st.session_state["user_info"] = user_info
+        st.query_params["page"] = "tool"  # Set the query parameter to "tool"
         st.experimental_rerun()  # Rerun the app to trigger the redirect
     else:
         authorization_url, state = flow.authorization_url()
@@ -35,8 +36,6 @@ def auth_flow():
 def main():
     if "google_auth_code" not in st.session_state:
         auth_flow()
-    else:
-        st.experimental_set_page("tool")  # Redirect to the tool page
 
 if __name__ == "__main__":
     main()
