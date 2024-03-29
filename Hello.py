@@ -34,22 +34,28 @@ def auth_flow():
         st.session_state["user_info"] = user_info
     else:
         authorization_url, state = flow.authorization_url()
-        button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">Sign in with Google</button></a>'
+        button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-size: 18px; cursor: pointer; font-weight: bold;">Sign in with Google</button>
         st.markdown(button_html, unsafe_allow_html=True)
-
+st.empty()
 def extract_info(text):
-    application_numbers = list(set(re.findall(r"Application number\s*:\s*(\d+)", text)))
-    applicant_names = list(set(re.findall(r"Applicant name\w*\s*:\s*(.*)", text)))
-    your_references = list(set(re.findall(r"Your reference\s*:\s*(\S.*)", text)))
-    return application_numbers, applicant_names, your_references
-
+    with st.container():
+         st.subheader("Text Extraction")
+         with st.expander("Show Details"):
+            application_numbers = list(set(re.findall(r"Application number\s*:\s*(\d+)", text)))
+            applicant_names = list(set(re.findall(r"Applicant name\w*\s*:\s*(.*)", text)))
+            your_references = list(set(re.findall(r"Your reference\s*:\s*(\S.*)", text)))
+            return application_numbers, applicant_names, your_references
+st.empty()
 def fetch_patent_details(application_number):
-    api_key = "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
-    url = f"https://serpapi.com/search?engine=google_patents&q={application_number}&api_key={api_key}"
-    response = requests.get(url)
-    data = json.loads(response.text)
-    return data
-
+    with st.container():
+         st.subheader("Google Patents Lookup")
+         with st.expander("Show Details"):
+            api_key = "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
+            url = f"https://serpapi.com/search?engine=google_patents&q={application_number}&api_key={api_key}"
+            response = requests.get(url)
+            data = json.loads(response.text)
+            return data
+st.empty()
 def generate_output(input_text, patent_details, example_output_urls):
     client = anthropic.Anthropic()
 
@@ -101,12 +107,14 @@ def nav_to(url):
 
 def main():
     st.set_page_config(page_title="LTC PP Exam Report", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
+    st.title("Baxter Internal Tools")
+    st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
     if "google_auth_code" not in st.session_state:
         auth_flow()
     if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
-        uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
+        uploaded_file = st.file_uploader("Upload a LFO PP PDF", type="pdf")
         if uploaded_file is not None:
             pdf_reader = PyPDF2.PdfReader(uploaded_file)
             text = ""
@@ -143,7 +151,8 @@ def main():
             ]
             
             output = generate_output(text, patent_details_list, example_output_urls)
-            st.markdown(output, unsafe_allow_html=True)
+            st.subheader("Response Letter")
+     st.markdown(output)
 
 if __name__ == "__main__":
     main()
