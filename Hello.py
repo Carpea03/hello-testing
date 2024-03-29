@@ -109,7 +109,7 @@ def nav_to(url):
 
 def main():
     
-    if "google_auth_code" not in st.session_state:
+    if "google_auth_code" in st.session_state:
         auth_flow()
     else:
         st.title("LTC PP Report Creator")
