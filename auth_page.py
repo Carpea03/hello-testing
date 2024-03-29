@@ -6,7 +6,7 @@ import streamlit as st
 redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
 
 def auth_flow():
-    st.write("Welcome to LTC Exam Report!")
+    st.write("Baxter Internal Tools")
     auth_code = st.query_params.get("code")
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "patent_examination_tool.json",
