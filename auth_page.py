@@ -34,7 +34,6 @@ def auth_flow():
                 access_type="offline",
                 include_granted_scopes="true",
             )
-            webbrowser.open_new_tab(authorization_url)
 
 
 def main():
