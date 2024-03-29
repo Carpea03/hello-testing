@@ -152,7 +152,7 @@ def main():
             
             output = generate_output(text, patent_details_list, example_output_urls)
             st.subheader("Response Letter")
-     st.markdown(output)
+            st.markdown(output)
 
 if __name__ == "__main__":
     main()
