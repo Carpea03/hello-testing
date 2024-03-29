@@ -1,8 +1,8 @@
+import webbrowser
 import os
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 import streamlit as st
-import webbrowser
 
 redirect_uri = os.environ.get("REDIRECT_URI", "https://baxter.streamlit.app/")
 
