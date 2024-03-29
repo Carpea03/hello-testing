@@ -113,7 +113,7 @@ def main():
             output = generate_output(text, patent_details_list, example_output_urls)
             st.markdown(output, unsafe_allow_html=True)
 
-    st.experimental_set_query_params(page="auth")
+    st.st.query_params.(page="auth")
 
 if __name__ == "__main__":
     main()
