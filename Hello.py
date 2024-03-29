@@ -34,7 +34,7 @@ def auth_flow():
         st.session_state["user_info"] = user_info
     else:
         authorization_url, state = flow.authorization_url()
-        button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-size: 18px; cursor: pointer; font-weight: bold;">Sign in with Google</button>
+        button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-size: 18px; cursor: pointer; font-weight: bold;">Sign in with Google</button>"
         st.markdown(button_html, unsafe_allow_html=True)
 st.empty()
 def extract_info(text):
