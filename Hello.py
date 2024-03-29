@@ -13,7 +13,7 @@ redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.
 
 def auth_flow():
     st.write("Baxter Internal Tools")
-    auth_code = st.query_params.get("code")
+      auth_code = st.query_params.get("code")
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "patent_examination_tool.json",
         scopes=["https://www.googleapis.com/auth/userinfo.email", "openid"],
@@ -22,7 +22,6 @@ def auth_flow():
     if auth_code:
         flow.fetch_token(code=auth_code)
         credentials = flow.credentials
-        st.write("Login Done")
         user_info_service = build(
             serviceName="oauth2",
             version="v2",
@@ -34,7 +33,7 @@ def auth_flow():
         st.session_state["user_info"] = user_info
     else:
         authorization_url, state = flow.authorization_url()
-        button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-size: 18px; cursor: pointer; font-weight: bold;">Sign in with Google</button></a>'
+        button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">Sign in with Google</button></a>'
         st.markdown(button_html, unsafe_allow_html=True)
 st.empty()
 def extract_info(text):
