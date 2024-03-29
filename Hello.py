@@ -9,6 +9,8 @@ import json
 import anthropic
 from io import BytesIO
 
+st.set_page_config(page_title="LTC PP Report Creator", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
+
 redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
 
 def auth_flow():
@@ -98,7 +100,6 @@ def nav_to(url):
     st.write(nav_script, unsafe_allow_html=True)
 
 def main():
-    st.set_page_config(page_title="LTC PP Report Creator", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
     
     if "google_auth_code" not in st.session_state:
         auth_flow()
