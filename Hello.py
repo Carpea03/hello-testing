@@ -1,6 +1,3 @@
-import os
-import google_auth_oauthlib.flow
-from googleapiclient.discovery import build
 import streamlit as st
 import PyPDF2
 import re
@@ -100,8 +97,6 @@ def nav_to(url):
     st.write(nav_script, unsafe_allow_html=True)
 
 def main():
-    if "google_auth_code" not in st.session_state:
-        auth_flow()
     if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
@@ -127,7 +122,9 @@ def main():
                             st.write(f"Your Reference {i+1}: Not found")
                 else:
                     st.write("No application numbers found in the uploaded file.")
-            
+        else:
+            st.write("Please log in to access the tool.")
+
             with st.expander("Google Patents Lookup"):
                 patent_details_list = []
                 for application_number in application_numbers:
@@ -143,6 +140,8 @@ def main():
             
             output = generate_output(text, patent_details_list, example_output_urls)
             st.markdown(output, unsafe_allow_html=True)
+
+    st.experimental_set_query_params(page="auth")
 
 if __name__ == "__main__":
     main()
