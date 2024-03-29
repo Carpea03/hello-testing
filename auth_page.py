@@ -2,6 +2,7 @@ import os
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 import streamlit as st
+import webbrowser
 
 redirect_uri = os.environ.get("REDIRECT_URI", "https://baxter.streamlit.app/")
 
@@ -34,7 +35,7 @@ def auth_flow():
                 access_type="offline",
                 include_granted_scopes="true",
             )
-
+            webbrowser.open_new_tab(authorization_url)
 
 def main():
     if "google_auth_code" not in st.session_state:
