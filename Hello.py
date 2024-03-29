@@ -101,7 +101,10 @@ def nav_to(url):
 def main():
     
     st.title("LTC PP Report Creator")
-    st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
+    if "google_auth_code" not in st.session_state:
+        auth_flow()
+    else:
+        st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
     
     if "google_auth_code" not in st.session_state:
         auth_flow()
