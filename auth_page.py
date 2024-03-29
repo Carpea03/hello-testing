@@ -4,7 +4,7 @@ import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 import streamlit as st
 
-redirect_uri = os.environ.get("REDIRECT_URI", "https://baxter.streamlit.app")
+redirect_uri = os.environ.get("REDIRECT_URI", "https://baxter.streamlit.app/")
 
 def auth_flow():
     st.write("Baxter Internal Tools")
