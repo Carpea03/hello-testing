@@ -92,12 +92,10 @@ def main():
         st.write(f"Hello {email}")
         uploaded_file = st.file_uploader("Upload an LFO PP PDF", type="pdf")
         if uploaded_file is not None:
-            st.write("Processing uploaded file...")  # Debug statement
             pdf_reader = PyPDF2.PdfReader(uploaded_file)
             text = ""
             for page in pdf_reader.pages:
                 text += page.extract_text()
-            st.write("Text extracted from PDF.")  # Debug statement
             with st.expander("Text Extraction"):
                 application_numbers, applicant_names, your_references = extract_info(text)
                 st.write(f"Application numbers: {application_numbers}")  # Debug statement
