@@ -99,19 +99,18 @@ def nav_to(url):
     st.write(nav_script, unsafe_allow_html=True)
 
 def main():
+    st.set_page_config(page_title="LTC PP Report Creator", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
     
     st.title("LTC PP Report Creator")
+    
     if "google_auth_code" not in st.session_state:
         auth_flow()
     else:
         st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
-    
-    if "google_auth_code" not in st.session_state:
-        auth_flow()
-    
-    if "google_auth_code" in st.session_state:
+        
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
+        
         st.markdown(
          """
          <style>
