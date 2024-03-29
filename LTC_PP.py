@@ -80,12 +80,6 @@ def generate_output(input_text, patent_details, example_output_urls):
 
     return formatted_response
 
-def nav_to(url):
-    nav_script = f"""
-    <meta http-equiv="refresh" content="0; url='{url}'">
-    """
-    st.write(nav_script, unsafe_allow_html=True)
-
 def main():
     if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
