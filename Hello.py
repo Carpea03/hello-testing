@@ -100,27 +100,27 @@ def nav_to(url):
 def main():
     st.set_page_config(page_title="LTC PP Report Creator", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
     
-    st.title("LTC PP Report Creator")
-    
     if "google_auth_code" not in st.session_state:
         auth_flow()
     else:
+        st.title("LTC PP Report Creator")
         st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
         
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
         
         st.markdown(
-         """
-         <style>
-         .uploadedFile {
-             width: 500px;  /* Adjust the width as needed */
-             height: 100px;  /* Adjust the height as needed */
-         }
-         </style>
-         """,
-         unsafe_allow_html=True
-     )
+            """
+            <style>
+            .uploadedFile {
+                width: 500px; /* Adjust the width as needed */
+                height: 100px; /* Adjust the height as needed */
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
         uploaded_file = st.file_uploader("Upload a LFO PP PDF", type="pdf", style="uploadedFile")
         
         if uploaded_file is not None:
