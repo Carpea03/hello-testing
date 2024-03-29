@@ -107,29 +107,37 @@ def nav_to(url):
 
 def main():
     st.set_page_config(page_title="LTC PP Exam Report", page_icon=":guardsman:", layout="wide", initial_sidebar_state="expanded")
+    
     st.title("Baxter Internal Tools")
     st.write("This application allows you to extract information from a PDF LFO, lookup the patents and then generate a LTC based on all the details.")
+    
     if "google_auth_code" not in st.session_state:
         auth_flow()
+    
     if "google_auth_code" in st.session_state:
         email = st.session_state["user_info"].get("email")
         st.write(f"Hello {email}")
+        
         uploaded_file = st.file_uploader("Upload a LFO PP PDF", type="pdf")
+        
         if uploaded_file is not None:
             pdf_reader = PyPDF2.PdfReader(uploaded_file)
             text = ""
             for page in pdf_reader.pages:
                 text += page.extract_text()
-
+            
             with st.expander("Text Extraction"):
                 application_numbers, applicant_names, your_references = extract_info(text)
+                
                 if application_numbers:
                     for i, application_number in enumerate(application_numbers):
                         st.write(f"Application Number {i+1}: {application_number}")
+                        
                         if i < len(applicant_names):
                             st.write(f"Applicant Name {i+1}: {applicant_names[i]}")
                         else:
                             st.write(f"Applicant Name {i+1}: Not found")
+                        
                         if i < len(your_references):
                             st.write(f"Your Reference {i+1}: {your_references[i]}")
                         else:
