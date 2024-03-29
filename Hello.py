@@ -1,4 +1,3 @@
-import os
 import streamlit as st
 import PyPDF2
 import re
@@ -6,8 +5,6 @@ import requests
 import json
 import anthropic
 from io import BytesIO
-
-redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
 
 def extract_info(text):
     application_numbers = list(set(re.findall(r"Application number\s*:\s*(\d+)", text)))
