@@ -26,7 +26,7 @@ def auth_flow():
         assert user_info.get("email"), "Email not found in infos"
         st.session_state["google_auth_code"] = auth_code
         st.session_state["user_info"] = user_info
-        st.st.query_params(page="tool")
+        st.query_params["page"] = "tool"  # Updated line
     else:
         authorization_url, state = flow.authorization_url()
         button_html = f'<a href="{authorization_url}" target="_self"><button style="background-color: #4285F4; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">Sign in with Google</button></a>'
