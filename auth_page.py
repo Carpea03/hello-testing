@@ -12,7 +12,7 @@ def auth_flow():
     
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "patent_examination_tool.json",
-        scopes=["https://www.googleapis.com/auth/userinfo.email","openid"],
+        scopes=["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/userinfo.profile","openid"],
         redirect_uri=redirect_uri,
     )
     
