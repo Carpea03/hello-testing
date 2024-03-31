@@ -12,6 +12,7 @@ from io import BytesIO
 #redirect_uri = "https://hellotesting-y175lslw65h.streamlit.app/"
 #redirect_uri = "https://super-duper-eureka-qw7xj5rv4vwhxxpg-8501.app.github.dev/"
 redirect_uri = "https://baxter.streamlit.app"
+#redirect_uri = "http://localhost:8501"
 
 def auth_flow():
     st.write("Welcome to LTC Exam Report!")
