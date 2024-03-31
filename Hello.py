@@ -9,7 +9,9 @@ import json
 import anthropic
 from io import BytesIO
 
-redirect_uri = os.environ.get("REDIRECT_URI", "https://hellotesting-y175lslw65h.streamlit.app/")
+#redirect_uri = "https://hellotesting-y175lslw65h.streamlit.app/"
+#redirect_uri = "https://super-duper-eureka-qw7xj5rv4vwhxxpg-8501.app.github.dev/"
+redirect_uri = "https://baxter.streamlit.app"
 
 def auth_flow():
     st.write("Welcome to LTC Exam Report!")
@@ -36,8 +38,8 @@ def auth_flow():
         
         authorization_url, state = flow.authorization_url(
         )
-        # nav_to(authorization_url)
-        st.write(authorization_url)
+        nav_to(authorization_url)
+        #st.write(authorization_url)
 
 def extract_info(text):
     application_numbers = re.findall(r"Application number\s*:\s*(\d+)", text)
