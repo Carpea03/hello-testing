@@ -1,10 +1,9 @@
-import webbrowser
-import os
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 import streamlit as st
 
-redirect_uri = os.environ.get("REDIRECT_URI", "https://baxter.streamlit.app")
+# redirect_uri = "https://baxter.streamlit.app"
+redirect_uri = "https://super-duper-eureka-qw7xj5rv4vwhxxpg-8501.app.github.dev/"
 
 def auth_flow():
     st.write("Baxter Internal Tools")
@@ -29,12 +28,11 @@ def auth_flow():
         st.session_state["google_auth_code"] = auth_code
         st.session_state["user_info"] = user_info
     else:
-        if st.button("Sign in with Google"):
-            authorization_url, state = flow.authorization_url(
+        authorization_url, state = flow.authorization_url(
                 access_type="offline",
                 include_granted_scopes="true",
             )
-            webbrowser.open_new_tab(authorization_url)
+        st.write(authorization_url)
 
 def main():
     if "google_auth_code" not in st.session_state:
