@@ -81,48 +81,45 @@ def generate_output(input_text, patent_details, example_output_urls):
     return formatted_response
 
 def main():
-    if "google_auth_code" in st.session_state:
-        email = st.session_state["user_info"].get("email")
-        st.write(f"Hello {email}")
-        uploaded_file = st.file_uploader("Upload an LFO PP PDF", type="pdf")
-        if uploaded_file is not None:
-            pdf_reader = PyPDF2.PdfReader(uploaded_file)
-            text = ""
-            for page in pdf_reader.pages:
-                text += page.extract_text()
-            with st.expander("Text Extraction"):
-                application_numbers, applicant_names, your_references = extract_info(text)
-                st.write(f"Application numbers: {application_numbers}")  # Debug statement
-                st.write(f"Applicant names: {applicant_names}")  # Debug statement
-                st.write(f"Your references: {your_references}")  # Debug statement
-                if application_numbers:
-                    for i, application_number in enumerate(application_numbers):
-                        st.write(f"Application Number {i+1}: {application_number}")
-                        if i < len(applicant_names):
-                            st.write(f"Applicant Name {i+1}: {applicant_names[i]}")
-                        else:
-                            st.write(f"Applicant Name {i+1}: Not found")
-                        if i < len(your_references):
-                            st.write(f"Your Reference {i+1}: {your_references[i]}")
-                        else:
-                            st.write(f"Your Reference {i+1}: Not found")
-                else:
-                    st.write("No application numbers found in the uploaded file.")
-            with st.expander("Google Patents Lookup"):
-                patent_details_list = []
-                for application_number in application_numbers:
-                    st.write(f"Fetching patent details for application number: {application_number}")  # Debug statement
-                    patent_details = fetch_patent_details(application_number)
-                    patent_details_list.append(patent_details)
-                    st.write(f"Patent Details for Application Number {application_number}:")
-                    st.write(patent_details)
-            example_output_urls = [
-                "https://drive.google.com/uc?export=download&id=1KZ4bc5d_Lnugp5XBKoUC3U5HUh71dBJz",
-                "https://drive.google.com/uc?export=download&id=1KYkrTkQ_Dvoa7jZAZluswQ_0Y8RiVI2G",
-            ]
-            st.write("Generating output...")  # Debug statement
-            output = generate_output(text, patent_details_list, example_output_urls)
-            st.markdown(output, unsafe_allow_html=True)
+    uploaded_file = st.file_uploader("Upload an LFO PP PDF", type="pdf")
+    if uploaded_file is not None:
+        pdf_reader = PyPDF2.PdfReader(uploaded_file)
+        text = ""
+        for page in pdf_reader.pages:
+            text += page.extract_text()
+        with st.expander("Text Extraction"):
+            application_numbers, applicant_names, your_references = extract_info(text)
+            st.write(f"Application numbers: {application_numbers}")  # Debug statement
+            st.write(f"Applicant names: {applicant_names}")  # Debug statement
+            st.write(f"Your references: {your_references}")  # Debug statement
+            if application_numbers:
+                for i, application_number in enumerate(application_numbers):
+                    st.write(f"Application Number {i+1}: {application_number}")
+                    if i < len(applicant_names):
+                        st.write(f"Applicant Name {i+1}: {applicant_names[i]}")
+                    else:
+                        st.write(f"Applicant Name {i+1}: Not found")
+                    if i < len(your_references):
+                        st.write(f"Your Reference {i+1}: {your_references[i]}")
+                    else:
+                        st.write(f"Your Reference {i+1}: Not found")
+            else:
+                st.write("No application numbers found in the uploaded file.")
+        with st.expander("Google Patents Lookup"):
+            patent_details_list = []
+            for application_number in application_numbers:
+                st.write(f"Fetching patent details for application number: {application_number}")  # Debug statement
+                patent_details = fetch_patent_details(application_number)
+                patent_details_list.append(patent_details)
+                st.write(f"Patent Details for Application Number {application_number}:")
+                st.write(patent_details)
+        example_output_urls = [
+            "https://drive.google.com/uc?export=download&id=1KZ4bc5d_Lnugp5XBKoUC3U5HUh71dBJz",
+            "https://drive.google.com/uc?export=download&id=1KYkrTkQ_Dvoa7jZAZluswQ_0Y8RiVI2G",
+        ]
+        st.write("Generating output...")  # Debug statement
+        output = generate_output(text, patent_details_list, example_output_urls)
+        st.markdown(output, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
