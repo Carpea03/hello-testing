@@ -106,19 +106,19 @@ def main():
             patent_details_list = []
             for application_number in application_numbers:
                 st.write(f"Fetching patent details for application number: {application_number}")
-                patent_id = f"patent/{application_number}"
-                patent_details = fetch_patent_details(patent_id)
+                patent_details = fetch_patent_details(application_number)
                 patent_details_list.append(patent_details)
                 st.write(f"Patent Details for Application Number {application_number}:")
                 st.write(patent_details)
-            
-            example_output_urls = [
-                "https://drive.google.com/uc?export=download&id=1KZ4bc5d_Lnugp5XBKoUC3U5HUh71dBJz",
-                "https://drive.google.com/uc?export=download&id=1KYkrTkQ_Dvoa7jZAZluswQ_0Y8RiVI2G",
-            ]
-            st.write("Generating output...")
-            output = generate_output(text, patent_details_list, example_output_urls)
-            st.markdown(output, unsafe_allow_html=True)
+        
+        example_output_urls = [
+            "https://drive.google.com/uc?export=download&id=1KZ4bc5d_Lnugp5XBKoUC3U5HUh71dBJz",
+            "https://drive.google.com/uc?export=download&id=1KYkrTkQ_Dvoa7jZAZluswQ_0Y8RiVI2G",
+        ]
+        
+        st.write("Generating output...")
+        output = generate_output(text, patent_details_list, example_output_urls)
+        st.markdown(output, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
