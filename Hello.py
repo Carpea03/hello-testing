@@ -5,6 +5,7 @@ import requests
 import json
 import anthropic
 from io import BytesIO
+from serpapi import GoogleSearch
 
 def extract_info(text):
     application_numbers = list(set(re.findall(r"Application number\s*:\s*(\d+)", text)))
@@ -12,28 +13,21 @@ def extract_info(text):
     your_references = list(set(re.findall(r"Your reference\s*:\s*(\S.*)", text)))
     return application_numbers, applicant_names, your_references
 
-def fetch_patent_details(application_number):
-    api_key = "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
-    url = f"https://serpapi.com/search?engine=google_patents&q={application_number}&api_key={api_key}"
-    response = requests.get(url)
-    data = json.loads(response.text)
+def fetch_patent_details(patent_id):
+    params = {
+        "engine": "google_patents_details",
+        "patent_id": patent_id,
+        "api_key": "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
+    }
     
-    patent_details = data.get("organic_results", [])
-    if patent_details:
-        patent_details = patent_details[0]
-        abstract = patent_details.get("abstract", "")
-        claims = patent_details.get("claims", [])
-        cited_patents = patent_details.get("cited_patents", [])
-        non_patent_citations = patent_details.get("non_patent_citations", [])
-        family_members = patent_details.get("family_members", [])
-        legal_events = patent_details.get("legal_events", [])
-        
-        patent_details["abstract"] = abstract
-        patent_details["claims"] = claims
-        patent_details["cited_patents"] = cited_patents
-        patent_details["non_patent_citations"] = non_patent_citations
-        patent_details["family_members"] = family_members
-        patent_details["legal_events"] = legal_events
+    search = GoogleSearch(params)
+    results = search.get_dict()
+    
+    patent_details = {}
+    patent_details["title"] = results.get("title", "")
+    patent_details["abstract"] = results.get("abstract", "")
+    patent_details["claims"] = results.get("claims", [])
+    patent_details["description_link"] = results.get("description_link", "")
     
     return patent_details
 
@@ -87,11 +81,13 @@ def main():
         text = ""
         for page in pdf_reader.pages:
             text += page.extract_text()
+        
         with st.expander("Text Extraction"):
             application_numbers, applicant_names, your_references = extract_info(text)
-            st.write(f"Application numbers: {application_numbers}")  # Debug statement
-            st.write(f"Applicant names: {applicant_names}")  # Debug statement
-            st.write(f"Your references: {your_references}")  # Debug statement
+            st.write(f"Application numbers: {application_numbers}")
+            st.write(f"Applicant names: {applicant_names}")
+            st.write(f"Your references: {your_references}")
+            
             if application_numbers:
                 for i, application_number in enumerate(application_numbers):
                     st.write(f"Application Number {i+1}: {application_number}")
@@ -105,21 +101,24 @@ def main():
                         st.write(f"Your Reference {i+1}: Not found")
             else:
                 st.write("No application numbers found in the uploaded file.")
+        
         with st.expander("Google Patents Lookup"):
             patent_details_list = []
             for application_number in application_numbers:
-                st.write(f"Fetching patent details for application number: {application_number}")  # Debug statement
-                patent_details = fetch_patent_details(application_number)
+                st.write(f"Fetching patent details for application number: {application_number}")
+                patent_id = f"patent/{application_number}"
+                patent_details = fetch_patent_details(patent_id)
                 patent_details_list.append(patent_details)
                 st.write(f"Patent Details for Application Number {application_number}:")
                 st.write(patent_details)
-        example_output_urls = [
-            "https://drive.google.com/uc?export=download&id=1KZ4bc5d_Lnugp5XBKoUC3U5HUh71dBJz",
-            "https://drive.google.com/uc?export=download&id=1KYkrTkQ_Dvoa7jZAZluswQ_0Y8RiVI2G",
-        ]
-        st.write("Generating output...")  # Debug statement
-        output = generate_output(text, patent_details_list, example_output_urls)
-        st.markdown(output, unsafe_allow_html=True)
+            
+            example_output_urls = [
+                "https://drive.google.com/uc?export=download&id=1KZ4bc5d_Lnugp5XBKoUC3U5HUh71dBJz",
+                "https://drive.google.com/uc?export=download&id=1KYkrTkQ_Dvoa7jZAZluswQ_0Y8RiVI2G",
+            ]
+            st.write("Generating output...")
+            output = generate_output(text, patent_details_list, example_output_urls)
+            st.markdown(output, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
