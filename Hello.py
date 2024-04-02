@@ -72,7 +72,7 @@ def generate_output(input_text, patent_details, example_output_urls):
 
     # Format the response content with Markdown and preserve line breaks
     formatted_response = f"""
-## Response Letter
+## Draft LTC
 
 {response_content_str}
 
