@@ -13,7 +13,7 @@ def extract_info(text):
     your_references = list(set(re.findall(r"Your reference\s*:\s*(\S.*)", text)))
     return application_numbers, applicant_names, your_references
 
-def fetch_patent_details(patent_id):
+def fetch_patent_details(application_numbers):
     params = {
         "engine": "google_patents_details",
         "patent_id": f"patent/{application_numbers}",
