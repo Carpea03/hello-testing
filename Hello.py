@@ -16,7 +16,7 @@ def extract_info(text):
 def fetch_patent_details(application_numbers):
     params = {
         "engine": "google_patents_details",
-        "patent_id": f"patent/{application_numbers}",
+        "patent_id": f"patent/AU{application_numbers}",
         "api_key": "823956cf4bb3d1f4b7a883edc8ae10166c23a7da7db812c8f1722c89ec8a9d02"
     }
     
