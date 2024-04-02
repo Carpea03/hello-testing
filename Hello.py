@@ -53,7 +53,7 @@ def generate_output(input_text, patent_details, example_output_urls):
         model="claude-3-opus-20240229",
         max_tokens=4000,
         stop_sequences=[anthropic.HUMAN_PROMPT],
-        system=f"Act as an expert Australian patents attorney working for Baxter IP Pty Ltd. Remember that in Australia the 'final date for acceptance' is the date to which all issues that are raised by IP Australia must be resolved otherwise the application lapses. Here are some example outputs to guide your response:\n\n{''.join(example_outputs)}.".
+        system=f"Act as an expert Australian patents attorney working for Baxter IP Pty Ltd. Remember that in Australia the 'final date for acceptance' is the date to which all issues that are raised by IP Australia must be resolved otherwise the application lapses. Here are some example outputs to guide your response:\n\n{''.join(example_outputs)}.",
         messages=[
             {
                 "role": "user",
