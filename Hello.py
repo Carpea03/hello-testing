@@ -54,7 +54,7 @@ def generate_output(input_text, patent_details, example_output_urls):
                 "content": [
                     {
                         "type": "text",
-                        "text": f"Generate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}"
+                        "text": f"Generate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}\n\nWhen you reply, first plan how you should answer within <thinking> </thinking> XML tags. This is a space for you to write down relevant content and will not be shown to the user.\n\nOnce you are done thinking, output your final answer to the user within <answer> </answer> XML tags. Make sure the answer is detailed and specific."
                     }
                 ]
             }
@@ -63,6 +63,14 @@ def generate_output(input_text, patent_details, example_output_urls):
 
 # Convert response.content to a string
     response_content_str = ''.join(item.text for item in response.content)
+
+# Extract thinking and answer parts from the response
+    thinking = re.search(r'<thinking>(.*?)</thinking>', response_content_str, re.DOTALL).group(1)
+    answer = re.search(r'<answer>(.*?)</answer>', response_content_str, re.DOTALL).group(1)
+    
+    # Display thinking part inside a toggle and answer part directly
+    with st.expander("Thinking"):
+        st.write(thinking)
 
     # Format the response content with Markdown and preserve line breaks
     formatted_response = f"""
