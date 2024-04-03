@@ -53,7 +53,7 @@ def generate_output(input_text, patent_details, example_output_urls):
                 "content": [
                     {
                         "type": "text",
-                        "text": f"When you reply, first plan how you should answer within <thinking> </thinking> XML tags. This is a space for you to write down relevant content and will not be shown to the user.\n\nOnce you are done thinking, output your final answer to the user within <answer> </answer> XML tags. Make sure the answer is detailed and specific.\n\nHere is the user question:\n<question>\nGenerate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}\n</question>"
+                        "text": f"When you reply, first plan how you should answer within <thinking></thinking> XML tags. This is a space for you to write down relevant content and will not be shown to the user.\n\nOnce you are done thinking, output your final answer to the user within <answer></answer> XML tags. Make sure the answer is detailed and specific.\n\nHere is the user question:\n<question>\nGenerate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}\n</question>"
                     }
                 ]
             }
@@ -65,8 +65,8 @@ def generate_output(input_text, patent_details, example_output_urls):
     thinking_match = re.search(r'<thinking>(.*?)</thinking>', response_content_str, re.DOTALL)
     answer_match = re.search(r'<answer>(.*?)</answer>', response_content_str, re.DOTALL)
     
-    thinking = thinking_match.group(1).strip() if thinking_match else ""
-    answer = answer_match.group(1).strip() if answer_match else ""
+    thinking = thinking_match.group(1).strip() if thinking_match else "No thinking found."
+    answer = answer_match.group(1).strip() if answer_match else "No answer found."
     
     # Format the answer with Markdown and preserve line breaks
     formatted_answer = f"""
@@ -135,13 +135,14 @@ def main():
  "https://drive.google.com/uc?export=download&id=1zsi5V38ixs6_UFMwJpHStmfvBPksD9OY"
 ]
         
-        st.write("Generating output...")
+    st.write("Generating output...")
     thinking, answer = generate_output(text, patent_details_list, example_output_urls)
     
-    with st.expander("Thinking"):
-        st.write(thinking)
+    st.write("Thinking:")
+    st.write(thinking)
     
+    st.write("Answer:")
     st.markdown(answer, unsafe_allow_html=True)
-
+    
 if __name__ == "__main__":
     main()
