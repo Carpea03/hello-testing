@@ -136,13 +136,13 @@ def main():
 ]
         
     st.write("Generating output...")
-    thinking, answer = generate_output(text, patent_details_list, example_output_urls)
+    thinking, answer = output = generate_output(text, patent_details_list, example_output_urls)
     
     st.write("Thinking:")
     st.write(thinking)
     
     st.write("Answer:")
     st.markdown(answer, unsafe_allow_html=True)
-    
+
 if __name__ == "__main__":
     main()
