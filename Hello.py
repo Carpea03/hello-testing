@@ -33,7 +33,6 @@ def fetch_patent_details(application_numbers):
 
 def generate_output(input_text, patent_details, example_output_urls):
     client = anthropic.Anthropic()
-
     example_outputs = []
     for url in example_output_urls:
         response = requests.get(url)
@@ -42,7 +41,7 @@ def generate_output(input_text, patent_details, example_output_urls):
         for page in pdf_reader.pages:
             example_text += page.extract_text()
         example_outputs.append(example_text)
-
+    
     response = client.messages.create(
         model="claude-3-opus-20240229",
         max_tokens=4000,
@@ -54,25 +53,28 @@ def generate_output(input_text, patent_details, example_output_urls):
                 "content": [
                     {
                         "type": "text",
-                        "text": f"Generate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}"
+                        "text": f"When you reply, first plan how you should answer within <thinking> </thinking> XML tags. This is a space for you to write down relevant content and will not be shown to the user.\n\nOnce you are done thinking, output your final answer to the user within <answer> </answer> XML tags. Make sure the answer is detailed and specific.\n\nHere is the user question:\n<question>\nGenerate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}\n</question>"
                     }
                 ]
             }
         ]
     )
-
-# Convert response.content to a string
+    
+    # Extract thinking and answer parts from the response
     response_content_str = ''.join(item.text for item in response.content)
-
-    # Format the response content with Markdown and preserve line breaks
-    formatted_response = f"""
-## Draft LTC
-
-{response_content_str}
-
-""".format(response_content_str.replace('(', '\\(').replace(')', '\\)'))
-
-    return formatted_response
+    thinking_match = re.search(r'<thinking>(.*?)</thinking>', response_content_str, re.DOTALL)
+    answer_match = re.search(r'<answer>(.*?)</answer>', response_content_str, re.DOTALL)
+    
+    thinking = thinking_match.group(1).strip() if thinking_match else ""
+    answer = answer_match.group(1).strip() if answer_match else ""
+    
+    # Format the answer with Markdown and preserve line breaks
+    formatted_answer = f"""
+    ## Draft LTC
+    {answer}
+    """.format(answer.replace('(', '\\(').replace(')', '\\)'))
+    
+    return thinking, formatted_answer
 
 def main():
     uploaded_file = st.file_uploader("Upload an LFO PP PDF", type="pdf")
@@ -134,8 +136,12 @@ def main():
 ]
         
         st.write("Generating output...")
-        output = generate_output(text, patent_details_list, example_output_urls)
-        st.markdown(output, unsafe_allow_html=True)
+    thinking, answer = generate_output(text, patent_details_list, example_output_urls)
+    
+    with st.expander("Thinking"):
+        st.write(thinking)
+    
+    st.markdown(answer, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
