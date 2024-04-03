@@ -47,14 +47,14 @@ def generate_output(input_text, patent_details, example_output_urls):
         model="claude-3-opus-20240229",
         max_tokens=4000,
         stop_sequences=[anthropic.HUMAN_PROMPT],
-        system=f"Act as an expert Australian patents attorney working for Baxter IP Pty Ltd. Remember that in Australia the 'final date for acceptance' is the date to which all issues that are raised by IP Australia must be resolved otherwise the application lapses. Here are some example outputs to guide your response:\n\n{''.join(example_outputs)}.",
+        system=f"When you reply, first plan how you should answer within <thinking> </thinking> XML tags. This is a space for you to write down relevant content and will not be shown to the user. Once you are done thinking, output your final answer to the user within <answer> </answer> XML tags. Make sure the answer is detailed and specific. Here is the user question: <question> Act as an expert Australian patents attorney working for Baxter IP Pty Ltd. Remember that in Australia the 'final date for acceptance' is the date to which all issues that are raised by IP Australia must be resolved otherwise the application lapses. Here are some example outputs to guide your response:\n\n{''.join(example_outputs)}.",
         messages=[
             {
                 "role": "user",
                 "content": [
                     {
                         "type": "text",
-                        "text": f"Generate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}\n\nWhen you reply, first plan how you should answer within <thinking> </thinking> XML tags. This is a space for you to write down relevant content and will not be shown to the user.\n\nOnce you are done thinking, output your final answer to the user within <answer> </answer> XML tags. Make sure the answer is detailed and specific."
+                        "text": f"Generate a letter to the client based on the following input and patent details:\n\nInput:\n{input_text}\n\nPatent Details:\n{json.dumps(patent_details, indent=2)}\n\n</question>"
                     }
                 ]
             }
