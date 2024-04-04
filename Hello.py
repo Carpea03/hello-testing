@@ -111,22 +111,23 @@ def main():
                 st.write(f"Patent Details for Application Number {application_number}:")
                 st.write(patent_details)
         
-        example_output_urls = [
+        output_urls = [
  "https://drive.google.com/uc?export=download&id=1-2_RyafaxbTPk8puaedbL70Iveod05Bt",
  "https://drive.google.com/uc?export=download&id=11CE5tozpqSjBxeZBeLdJUgukIw1e43_g",
  "https://drive.google.com/uc?export=download&id=11na8qj0NOxNRmkb6eF7zNnlOnAWE2SXo",
  "https://drive.google.com/uc?export=download&id=15_GtrA02bIZcTrUxpZh6u-OPjAMfYCMd",
+ "https://drive.google.com/uc?export=download&id=17R40ygloV6myYnrFJdGhZ0HF_U7ZV2b8",
  "https://drive.google.com/uc?export=download&id=1BpozX46E5tMJStTg36H1j7SjPFRw69Jv",
  "https://drive.google.com/uc?export=download&id=1Kh6HV7fiR49v5WtWJS4nxcwel7f7ZFCm",
  "https://drive.google.com/uc?export=download&id=1LgyWezeiEwwEfx8rdWBK3_2mZmO231Ha",
  "https://drive.google.com/uc?export=download&id=1LhZwax4vHc_9qfMQ6jUqkHNZ0vgYVhe-",
  "https://drive.google.com/uc?export=download&id=1Nxavxm2tp2RJUBJrRVmn0GeOG9irxYgP",
  "https://drive.google.com/uc?export=download&id=1P-rvnczpMDruJRKzhA1kXzzTy13RGU1y",
+ "https://drive.google.com/uc?export=download&id=1enG2TeWfyus5FTk263YtksNPxvUTN9aO",
  "https://drive.google.com/uc?export=download&id=1fneuEBn2xILWHSL4SAF67dMgMdVoCUUd",
  "https://drive.google.com/uc?export=download&id=1kEF4xiTgWAIdDnmC5Zkm3Vxm4OdWn0pA",
  "https://drive.google.com/uc?export=download&id=1kHkgam7cTE6J2L85wwcrJ-ZT0MiPoi8E",
  "https://drive.google.com/uc?export=download&id=1l4ifeydtdVfXuWqfxKPGv9KQ1ixI3DMW",
- "https://drive.google.com/uc?export=download&id=1n5rufXG0ysD5J1VUYvADNcreU4F2rESX",
  "https://drive.google.com/uc?export=download&id=1oOQMYU6gz4JBu59-AZUll6H67Z_A85lT",
  "https://drive.google.com/uc?export=download&id=1pVYbCGM3bhNpFTXInpMg0VR966H-fW5d",
  "https://drive.google.com/uc?export=download&id=1pf2XqTHAPFv-AGBTHALXh3Adeq7IJh0o",
