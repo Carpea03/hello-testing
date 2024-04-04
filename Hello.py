@@ -111,7 +111,7 @@ def main():
                 st.write(f"Patent Details for Application Number {application_number}:")
                 st.write(patent_details)
         
-        output_urls = [
+        example_output_urls = [
  "https://drive.google.com/uc?export=download&id=1-2_RyafaxbTPk8puaedbL70Iveod05Bt",
  "https://drive.google.com/uc?export=download&id=11CE5tozpqSjBxeZBeLdJUgukIw1e43_g",
  "https://drive.google.com/uc?export=download&id=11na8qj0NOxNRmkb6eF7zNnlOnAWE2SXo",
