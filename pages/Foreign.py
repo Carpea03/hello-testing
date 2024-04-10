@@ -112,27 +112,27 @@ def main():
                 st.write(patent_details)
         
         example_output_urls = [
- "https://drive.google.com/uc?export=download&id=1-2_RyafaxbTPk8puaedbL70Iveod05Bt",
- "https://drive.google.com/uc?export=download&id=11CE5tozpqSjBxeZBeLdJUgukIw1e43_g",
- "https://drive.google.com/uc?export=download&id=11na8qj0NOxNRmkb6eF7zNnlOnAWE2SXo",
- "https://drive.google.com/uc?export=download&id=15_GtrA02bIZcTrUxpZh6u-OPjAMfYCMd",
- "https://drive.google.com/uc?export=download&id=17R40ygloV6myYnrFJdGhZ0HF_U7ZV2b8",
- "https://drive.google.com/uc?export=download&id=1BpozX46E5tMJStTg36H1j7SjPFRw69Jv",
- "https://drive.google.com/uc?export=download&id=1Kh6HV7fiR49v5WtWJS4nxcwel7f7ZFCm",
- "https://drive.google.com/uc?export=download&id=1LgyWezeiEwwEfx8rdWBK3_2mZmO231Ha",
- "https://drive.google.com/uc?export=download&id=1LhZwax4vHc_9qfMQ6jUqkHNZ0vgYVhe-",
- "https://drive.google.com/uc?export=download&id=1Nxavxm2tp2RJUBJrRVmn0GeOG9irxYgP",
- "https://drive.google.com/uc?export=download&id=1P-rvnczpMDruJRKzhA1kXzzTy13RGU1y",
- "https://drive.google.com/uc?export=download&id=1enG2TeWfyus5FTk263YtksNPxvUTN9aO",
- "https://drive.google.com/uc?export=download&id=1fneuEBn2xILWHSL4SAF67dMgMdVoCUUd",
- "https://drive.google.com/uc?export=download&id=1kEF4xiTgWAIdDnmC5Zkm3Vxm4OdWn0pA",
- "https://drive.google.com/uc?export=download&id=1kHkgam7cTE6J2L85wwcrJ-ZT0MiPoi8E",
- "https://drive.google.com/uc?export=download&id=1l4ifeydtdVfXuWqfxKPGv9KQ1ixI3DMW",
- "https://drive.google.com/uc?export=download&id=1oOQMYU6gz4JBu59-AZUll6H67Z_A85lT",
- "https://drive.google.com/uc?export=download&id=1pVYbCGM3bhNpFTXInpMg0VR966H-fW5d",
- "https://drive.google.com/uc?export=download&id=1pf2XqTHAPFv-AGBTHALXh3Adeq7IJh0o",
- "https://drive.google.com/uc?export=download&id=1zsi5V38ixs6_UFMwJpHStmfvBPksD9OY"
-]
+    "https://drive.google.com/uc?export=download&id=1-a8xTd4lwHGHVpu64Y0Kq1_sZ_TgSISx",
+    "https://drive.google.com/uc?export=download&id=16o8Sxb4x5ym3JlzBOfkAVJlRmytqbVA6",
+    "https://drive.google.com/uc?export=download&id=1CBvOKjkIHDurwKOMFCVMf7yCX6JrE6Y5",
+    "https://drive.google.com/uc?export=download&id=1EbmW8zi6l3kGznyb6e-9TNczui1-2q_r",
+    "https://drive.google.com/uc?export=download&id=1F0vVLaH0z4xUnBt6p4XUC9Vgi7PecftJ",
+    "https://drive.google.com/uc?export=download&id=1FVMRt4mP-vNBw-Pci-8x-NMIdF9D9mgn",
+    "https://drive.google.com/uc?export=download&id=1Gmxvc37s14mPrNvcJN1IYfdxQE3paSQL",
+    "https://drive.google.com/uc?export=download&id=1KXiCMpcAasxcxMAiuIaizljrBB9hskrS",
+    "https://drive.google.com/uc?export=download&id=1LdrrS4efQThHjQL9d3tUE02WV25BTE5P",
+    "https://drive.google.com/uc?export=download&id=1NMIvMj4eE5YkBUvYBugBNBwfI_UAshKg",
+    "https://drive.google.com/uc?export=download&id=1O6G5bEGO1883LQqgqdNsLukdQi3hjg7k",
+    "https://drive.google.com/uc?export=download&id=1PD0_KmPfQo6LK2rXb-EwE5Skrc0wpwE-",
+    "https://drive.google.com/uc?export=download&id=1QOjKQL28YuCSKXCIjQkz5RCaLiS0i_an",
+    "https://drive.google.com/uc?export=download&id=1cXmHvSQFdwp4pCJL1-93LIRDXGPCTsVZ",
+    "https://drive.google.com/uc?export=download&id=1dP_xszhhSUvmickz-7RpfdRKDBb2swvL",
+    "https://drive.google.com/uc?export=download&id=1dZThsIR3UNXmtnGOFkTkhk7uHRlhIBx6",
+    "https://drive.google.com/uc?export=download&id=1g0Q3mtc0hPwbZjq-uKp2M8tfpJLHFOef",
+    "https://drive.google.com/uc?export=download&id=1lWDQOqtWGnSzu6CO707-BjBd4T_xYJ2H",
+    "https://drive.google.com/uc?export=download&id=1mzcEtcrzvMFxSRPIi54B7u7pIayTXQhh",
+    "https://drive.google.com/uc?export=download&id=1zPVa1PX8M7EWuQX9meVeDmZzoo9Wq95z"
+    ]
         
         st.write("Generating output...")
         output = generate_output(text, patent_details_list, example_output_urls)
