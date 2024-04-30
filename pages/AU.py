@@ -180,7 +180,7 @@ def main():
     else:
         st.session_state['uploaded_file'] = None
         st.session_state['download_clicked'] = False
-        st.experimental_rerun()
+        st.rerun()
 
 if __name__ == "__main__":
     main()
